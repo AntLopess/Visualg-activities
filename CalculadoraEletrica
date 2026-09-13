@@ -1,0 +1,153 @@
+algoritmo "CalculadoraEletrica"
+var
+   opcao: inteiro
+   V, I, R, P: real
+   cor: vetor[0..9] de caractere
+   n: real
+   expoente, d1, d2, ni: inteiro
+   pausar: caractere
+
+inicio
+   // Tabela de cores dos resistores (0 a 9)
+   cor[0] <- "Preto"
+   cor[1] <- "Marrom"
+   cor[2] <- "Vermelho"
+   cor[3] <- "Laranja"
+   cor[4] <- "Amarelo"
+   cor[5] <- "Verde"
+   cor[6] <- "Azul"
+   cor[7] <- "Violeta"
+   cor[8] <- "Cinza"
+   cor[9] <- "Branco"
+
+   repita
+      limpatela
+      escreval("=======================================")
+      escreval("   CALCULADORA DE GRANDEZAS ELETRICAS")
+      escreval("=======================================")
+      escreval("1 - Calcular Tensao (V = R x I)")
+      escreval("2 - Calcular Corrente (I = V / R)")
+      escreval("3 - Calcular Resistencia (R = V / I)")
+      escreval("4 - Calcular Potencia (P = V x I)")
+      escreval("0 - Sair")
+      escreval("=======================================")
+      escreval("Escolha uma opcao: ")
+      leia(opcao)
+
+      escolha opcao
+         caso 1
+            limpatela
+            escreval("--- CALCULO DE TENSAO (V = R x I) ---")
+            escreval("")
+            escreva("Digite o valor da Resistencia (ohms): ")
+            leia(R)
+            escreva("Digite o valor da Corrente (amperes): ")
+            leia(I)
+            V <- R * I
+            escreval("")
+            escreval("Resultado: A Tensao (V) e: ", V, " Volts")
+            escreval("")
+            escreval("Pressione ENTER para voltar ao menu...")
+            leia(pausar)
+
+         caso 2
+            limpatela
+            escreval("--- CALCULO DE CORRENTE (I = V / R) ---")
+            escreval("")
+            escreva("Digite o valor da Tensao (volts): ")
+            leia(V)
+            escreva("Digite o valor da Resistencia (ohms): ")
+            leia(R)
+            escreval("")
+            se (R = 0) entao
+               escreval("Erro: Resistencia nao pode ser zero!")
+            senao
+               I <- V / R
+               escreval("Resultado: A Corrente (I) é: ", I, " Amperes")
+            fimse
+            escreval("")
+            escreval("Pressione ENTER para voltar ao menu...")
+            leia(pausar)
+
+         caso 3
+
+            limpatela
+            escreval("--- CALCULO DE RESISTENCIA (R = V / I) ---")
+            escreval("")
+            escreva("Digite o valor da Tensao (volts): ")
+            leia(V)
+            escreva("Digite o valor da Corrente (amperes): ")
+            leia(I)
+            escreval("")
+            se (I = 0) entao
+               escreva("Erro: Corrente nao pode ser zero!")
+            senao
+               R <- V / I
+               escreval("Resultado: A Resistencia (R) e: ", R, " Ohms")
+
+               se (R >= 10) entao
+                  n <- R
+                  expoente <- 0
+
+                  enquanto (n >= 100) faca
+                     n <- n / 10
+                     expoente <- expoente + 1
+                  fimenquanto
+
+                  ni <- 0
+                  enquanto (ni <= n - 1) faca
+                     ni <- ni + 1
+                  fimenquanto
+
+                  d1 <- ni div 10
+                  d2 <- ni mod 10
+
+                  escreval("")
+                  escreval("--- Codigo de Cores do Resistor ---")
+                  escreval("1a Faixa: ", cor[d1])
+                  escreval("2a Faixa: ", cor[d2])
+                  se (expoente <= 9) entao
+                     escreval("3a Faixa (Multiplicador): ", cor[expoente])
+                  senao
+                     escreval("3a Faixa (Multiplicador): fora da tabela padrao")
+                  fimse
+                  escreval("4a Faixa (Tolerancia): Dourado (5%)")
+               senao
+                  escreval("")
+                  escreval("Obs: codigo de cores exibido apenas para R >= 10 ohms")
+               fimse
+            fimse
+            escreval("")
+            escreval("Pressione ENTER para voltar ao menu...")
+            leia(pausar)
+
+         caso 4
+            limpatela
+            escreval("--- CALCULO DE POTENCIA (P = V x I) ---")
+            escreval("")
+            escreva("Digite o valor da Tensao (volts): ")
+            leia(V)
+            escreva("Digite o valor da Corrente (amperes): ")
+            leia(I)
+            P <- V * I
+            escreval("")
+            escreval("Resultado: A Potencia (P) é: ", P, " Watts")
+            escreval("")
+            escreval("Pressione ENTER para voltar ao menu...")
+            leia(pausar)
+
+         caso 0
+            limpatela
+            escreval("Encerrando o programa...")
+
+         outrocaso
+            limpatela
+            escreval("Opcao invalida! Tente novamente.")
+            escreval("")
+            escreval("Pressione ENTER para voltar ao menu...")
+            leia(pausar)
+      fimescolha
+
+   ate opcao = 0
+
+fimalgoritmo
